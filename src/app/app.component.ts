@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  name = '';
+
+  constructor(private userService: UserService) {}
+
+  public getUserName(){
+    return localStorage.getItem('user_firstname');
+  }
+
+  public logout(){
+    this.userService.logout();
+  }
 }
