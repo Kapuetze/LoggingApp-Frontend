@@ -1,16 +1,6 @@
-<div class="row">
-  <div class="col-lg-4 offset-lg-4 col-md-4 offset-md-4">
-      <h1>Log in</h1>
-      <form [formGroup]="loginForm" (submit)="login()">
-          <div class="form-group">
-              <label for="email">E-Mail</label>
-              <input formControlName="email" type="email" id="email" name="email" class="form-control">
-          </div>
-          <div class="form-group">
-              <label for="password">Password</label>
-              <input formControlName="password" type="password" id="password" name="password" class="form-control">
-          </div>
-          <button type="submit" class="form-control">Login</button>
-      </form>
-  </div>
-</div>
+<h1>Log in</h1>
+<form [formGroup]="loginForm" (submit)="login()" class="uk-grid-small uk-child-width-1-1 uk-padding-remove" uk-grid>
+	<app-text-input label="E-Mail" placeholder="E-Mail" id="email"></app-text-input>
+	<app-text-input label="Password" placeholder="Password" id="password"></app-text-input>
+	<button type="submit" class="uk-button uk-padding-small-left">Login</button>
+</form>

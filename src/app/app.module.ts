@@ -8,11 +8,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { NavigationComponent } from './shared/navigation/navigation.component';
 
 //import the authentication JWT HTTP interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
+import { CustomFormElementsModule } from './custom-form-elements/custom-form-elements.module';
 
 @NgModule({
   declarations: [
@@ -20,14 +20,14 @@ import { AuthInterceptor } from './shared/auth/auth.interceptor';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    NavigationComponent,
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CustomFormElementsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -35,7 +35,8 @@ import { AuthInterceptor } from './shared/auth/auth.interceptor';
     multi: true
   },
   {
-    provide: ErrorHandler
+    provide: ErrorHandler,
+    useClass: ErrorHandler
   }],
   bootstrap: [AppComponent]
 })

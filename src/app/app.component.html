@@ -1,47 +1,44 @@
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-  <button class="navbar-toggler ml-auto" data-toggle="collapse" data-target="#NavBarMenu">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-  <div id="NavBarMenu" class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Admin
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" [routerLink]="['/admin/users']">Users</a>
-                  <a class="dropdown-item" >Categories</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-          </li>
-          <li class="nav-item">
-              
-          </li>
-          <li class="nav-item">
-              <a class="nav-link">Orgs</a>
-          </li>
-      </ul>
-      
-      <!--LOGIN BUTTONS-->
-      <ul class="navbar-nav ml-auto">
-          <li class="nav-item pull-right">
-              <a *ngIf="!userService.isLoggedIn()" class="nav-link" [routerLink]="['/user/login']" routerLinkActive="active">Login</a>
-          </li>
-          <li class="nav-item pull-right">
-              <a *ngIf="!userService.isLoggedIn()" class="nav-link" [routerLink]="['/user/register']" routerLinkActive="active">Register</a>
-          </li>
-          <li class="nav-item pull-right">
-              <a *ngIf="userService.isLoggedIn()" class="nav-link" [routerLink]="['/user/profile']" routerLinkActive="active">{{ getUserName() }}</a>
-          </li>
-          <li class="nav-item pull-right">
-              <a *ngIf="userService.isLoggedIn()" class="nav-link" href="#" (click)="logout()">Logout</a>
-          </li>
-      </ul>      
-  </div>
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Active</a></li>
+            <li>
+                <a href="#">Parent</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Active</a></li>
+            <li><a href="#">Item</a></li>
+            <li>
+                <a *ngIf="!userService.isLoggedIn()" [routerLink]="['/user/login']" routerLinkActive="active">Login</a>
+            </li>
+            <li>
+                <a *ngIf="!userService.isLoggedIn()" [routerLink]="['/user/register']" routerLinkActive="active">Register</a>
+            </li>
+            <li>
+                <a *ngIf="userService.isLoggedIn()" [routerLink]="['/user/profile']" routerLinkActive="active">{{ getUserName() }}</a>
+            </li>
+            <li >
+                <a *ngIf="userService.isLoggedIn()" href="#" (click)="logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
-<div class="container p-3">
-  <router-outlet></router-outlet>
+<div class="uk-section">
+    <div class="uk-container uk-container-small uk-position-relative">
+        <div class="uk-grid-match uk-child-width-1-1" uk-grid>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>
 
