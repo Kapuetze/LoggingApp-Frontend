@@ -10,9 +10,9 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
 
 	loginForm : FormGroup = new FormGroup({
-			email: new FormControl(null, [Validators.email, Validators.required]),
-			password: new FormControl(null, Validators.required),
-		})
+		email: new FormControl(null, [Validators.email, Validators.required]),
+		password: new FormControl(null, Validators.required),
+	})
 
 	constructor(private userService: UserService) { }
 
@@ -21,7 +21,12 @@ export class LoginComponent implements OnInit {
 
 	login(){
 		if (!this.loginForm.valid) {
-			console.log("Invalid credentials!");
+			// UIkit.notification({
+			// 	message: 'Invalid credentials!',
+			// 	status: 'danger',
+			// 	pos: 'top-center',
+			// 	timeout: 5000
+			// });
 		}else{
 			this.userService.login(JSON.stringify(this.loginForm.value))
 			.subscribe(
@@ -31,7 +36,6 @@ export class LoginComponent implements OnInit {
 				error => {
 					console.log("Error: " + error.message);
 				}
-				
 			)
 		}
 	}
