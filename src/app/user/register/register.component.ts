@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 		email: new FormControl(null, [Validators.email, Validators.required]),
 		password: new FormControl(null, Validators.required),
 		cpassword: new FormControl(null, Validators.required)
-	})
+	}, this.checkPasswords );
 
   	constructor(private _router: Router, private _userService: UserService) { }
 
@@ -39,6 +39,13 @@ export class RegisterComponent implements OnInit {
 				
 			)
 		}
+	}
+
+	checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+		let pass = group.controls.password.value;
+		let confirmPass = group.controls.cpassword.value;
+
+		return pass === confirmPass ? null : { passwordsDontMatch: true }
 	}
 
 }

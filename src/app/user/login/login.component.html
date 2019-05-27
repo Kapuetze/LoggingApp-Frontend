@@ -1,8 +1,8 @@
 <h1>Log in</h1>
 <form [formGroup]="loginForm" (submit)="login()" class="uk-grid-small uk-child-width-1-1 uk-padding-remove" uk-grid>
-	<app-text-input label="E-Mail" placeholder="E-Mail" id="email"></app-text-input>
-	<app-text-input label="Password" placeholder="Password" id="password"></app-text-input>
+	<app-text-input [parentForm]="loginForm" type="email" label="E-Mail" placeholder="E-Mail" id="email"></app-text-input>
+	<app-text-input [parentForm]="loginForm" type="password" label="Password" placeholder="Password" id="password"></app-text-input>
 	<div>
-		<button type="submit" class="uk-button uk-width-expand">Login</button>
+		<button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!loginForm.valid">Login</button>
 	</div>
 </form>

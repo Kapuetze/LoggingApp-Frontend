@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
+import * as UIkit from 'uikit';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +22,13 @@ export class LoginComponent implements OnInit {
 
 	login(){
 		if (!this.loginForm.valid) {
-			// UIkit.notification({
-			// 	message: 'Invalid credentials!',
-			// 	status: 'danger',
-			// 	pos: 'top-center',
-			// 	timeout: 5000
-			// });
+			UIkit.notification({
+				message: 'Invalid credentials!',
+				status: 'danger',
+				pos: 'top-center',
+				timeout: 5000
+			});
+			console.log(this.loginForm.errors);
 		}else{
 			this.userService.login(JSON.stringify(this.loginForm.value))
 			.subscribe(

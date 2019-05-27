@@ -1,6 +1,7 @@
+import { Global } from '@config/global';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { User } from "../shared/models/user";
+import { User } from "@models/user";
 import * as moment from "moment";
 import { Observable, of } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
@@ -14,7 +15,7 @@ export class UserService {
 
 	//register a new account
   	register(body: any){
-		return this.http.post("http://localhost:3000/user/register", body, {
+		return this.http.post(Global.apiBase + "/user/register", body, {
 			observe: "body",
 			headers: new HttpHeaders().append("Content-Type", "application/json")
 		});
