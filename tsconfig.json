@@ -18,7 +18,8 @@
     ],
     "paths": {
       "@models/*": ["src/app/shared/models/*"],
-      "@config/*": ["src/config/*"]
+      "@config/*": ["src/config/*"],
+      "@environment/*": ["src/environments/*"]
     }
   }
 }

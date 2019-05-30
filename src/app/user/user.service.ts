@@ -1,4 +1,4 @@
-import { Global } from '@config/global';
+import { environment } from '@environment/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "@models/user";
@@ -15,7 +15,7 @@ export class UserService {
 
 	//register a new account
   	register(body: any){
-		return this.http.post(Global.apiBase + "/user/register", body, {
+		return this.http.post(environment.apiBase + "/user/register", body, {
 			observe: "body",
 			headers: new HttpHeaders().append("Content-Type", "application/json")
 		});
@@ -23,7 +23,7 @@ export class UserService {
 
 	//login an account
 	login(body : any){
-		return this.http.post("http://localhost:3000/user/login", body, {
+		return this.http.post(environment.apiBase + "/user/login", body, {
 			observe: "body",
 			withCredentials: true,
 			headers: new HttpHeaders().append("Content-Type", "application/json")
@@ -31,7 +31,7 @@ export class UserService {
 	}
 
 	getUser(id: string) {
-		return this.http.get("http://localhost:3000/user/"+id).pipe(
+		return this.http.get(environment.apiBase + "/user/"+id).pipe(
 			map((res) => res as User),
 			catchError(error => of([]))
 		);
