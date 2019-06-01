@@ -13,6 +13,7 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { CustomFormElementsModule } from './custom-form-elements/custom-form-elements.module';
+import { LogDashboardComponent } from './dashboard/log-dashboard/log-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CustomFormElementsModule } from './custom-form-elements/custom-form-ele
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
+    LogDashboardComponent,
    ],
   imports: [
     BrowserModule,

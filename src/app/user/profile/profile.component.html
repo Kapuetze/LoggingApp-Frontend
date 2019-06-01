@@ -1,4 +1,8 @@
-<p>
-	Hello {{ user.firstname }},
-	E-Mail: {{ user.email }}
-</p>
+<div class="uk-container uk-container-small uk-position-relative">
+	<div class="uk-grid-match uk-child-width-1-1" uk-grid>
+		<p>
+			Hello {{ user.name.first }},
+			E-Mail: {{ user.email }}
+		</p>
+	</div>
+</div>

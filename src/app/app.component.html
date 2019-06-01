@@ -1,7 +1,7 @@
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="#">Active</a></li>
+            <li class="uk-active"><a *ngIf="userService.isLoggedIn()" [routerLink]="['/log/dashboard']" routerLinkActive="uk-active">Logs</a></li>
             <li>
                 <a href="#">Parent</a>
                 <div class="uk-navbar-dropdown">
@@ -16,16 +16,14 @@
     </div>
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="#">Active</a></li>
-            <li><a href="#">Item</a></li>
             <li>
-                <a *ngIf="!userService.isLoggedIn()" [routerLink]="['/user/login']" routerLinkActive="active">Login</a>
+                <a *ngIf="!userService.isLoggedIn()" [routerLink]="['/user/login']" routerLinkActive="uk-active">Login</a>
             </li>
             <li>
-                <a *ngIf="!userService.isLoggedIn()" [routerLink]="['/user/register']" routerLinkActive="active">Register</a>
+                <a *ngIf="!userService.isLoggedIn()" [routerLink]="['/user/register']" routerLinkActive="uk-active">Register</a>
             </li>
             <li>
-                <a *ngIf="userService.isLoggedIn()" [routerLink]="['/user/profile']" routerLinkActive="active">{{ getUserName() }}</a>
+                <a *ngIf="userService.isLoggedIn()" [routerLink]="['/user/profile']" routerLinkActive="uk-active">{{ getUserName() }}</a>
             </li>
             <li >
                 <a *ngIf="userService.isLoggedIn()" href="#" (click)="logout()">Logout</a>
@@ -35,10 +33,6 @@
 </nav>
 
 <div class="uk-section">
-    <div class="uk-container uk-container-small uk-position-relative">
-        <div class="uk-grid-match uk-child-width-1-1" uk-grid>
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+    <router-outlet></router-outlet>
 </div>
 

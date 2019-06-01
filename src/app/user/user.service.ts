@@ -39,11 +39,13 @@ export class UserService {
 	
 	public setSession(authResult) {
 		const expiresAt = moment().add(authResult.expiration,'second');
+
+		debugger;
 		
 		localStorage.setItem('user_id', authResult.user._id);
-		localStorage.setItem('user_firstname', authResult.user.firstname);
+		localStorage.setItem('user_firstname', authResult.user.name.first);
         localStorage.setItem('token_id', authResult.token);
-        localStorage.setItem("token_expiration", JSON.stringify(expiresAt.valueOf()) );
+		localStorage.setItem("token_expiration", JSON.stringify(expiresAt.valueOf()) );
     }          
 
     logout() {

@@ -1,0 +1,15 @@
+<div class="uk-container uk-container-expand uk-position-relative">
+	<div class="uk-grid-match uk-child-width-1-1" uk-grid>
+		<h1>Dashboard</h1>
+		<div *ngFor="let log of logs">
+			<div class="uk-card uk-card-default uk-card-hover uk-card-body">
+				<h3 class="uk-card-title">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</h3>
+				<span class="uk-label">{{ log.label }}</span>
+				<p *ngFor="let prop of objectKeys(log.content)">
+					{{ prop }}: {{ log.content[prop] }}
+				</p>
+				{{ getContent(log.content) }}
+			</div>
+		</div>
+	</div>
+</div>
