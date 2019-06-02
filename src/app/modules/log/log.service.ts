@@ -20,9 +20,18 @@ export class LogService {
 	}
 	
 	getByUser() {
-		return this.http.get(environment.apiBase + "/logs/").pipe(
+		return this.http.post(environment.apiBase + "/logs/search", {}).pipe(
 			map((res) => res as Log),
 			catchError(error => of([]))
 		);
-	}
+    }
+    
+    query(){
+        var curDate = new Date();
+
+        return this.http.post(environment.apiBase + "/logs/search", { creationDate: { "$gte": curDate.toLocaleDateString("en-US") } }).pipe(
+			map((res) => res as Log),
+			catchError(error => of([]))
+		);
+    }
 }
