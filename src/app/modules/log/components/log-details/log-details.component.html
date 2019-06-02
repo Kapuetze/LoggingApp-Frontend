@@ -1,0 +1,15 @@
+<div class="uk-card-badge uk-label">{{ log.label }}</div>
+<h3 class="uk-card-title">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</h3>
+
+<div style="max-height: 200px; overflow: hidden;" [innerHTML]="getContent(log.content)"></div>
+
+<div id="{{log._id}}" uk-modal>
+    <div class="uk-modal-dialog">
+        <div class="uk-modal-body" uk-overflow-auto>
+            <div [innerHTML]="getContent(log.content)"></div>
+        </div>
+    </div>
+</div>
+<div class="uk-card-footer">
+    <button class="uk-button uk-button-default uk-float-right" attr.uk-toggle="target: #{{log._id}}" type="button">Details</button>
+</div>

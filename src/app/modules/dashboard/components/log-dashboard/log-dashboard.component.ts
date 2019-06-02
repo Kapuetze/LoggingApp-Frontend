@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LogService } from '../log.service';
 import { Log } from '@models/log';
+import { LogService } from 'src/app/modules/log/log.service';
 
 @Component({
   selector: 'app-log-dashboard',

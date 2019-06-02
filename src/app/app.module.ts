@@ -5,31 +5,21 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './user/login/login.component';
-import { RegisterComponent } from './user/register/register.component';
-import { ProfileComponent } from './user/profile/profile.component';
 
 //import the authentication JWT HTTP interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
-import { CustomFormElementsModule } from './custom-form-elements/custom-form-elements.module';
-import { LogDashboardComponent } from './dashboard/log-dashboard/log-dashboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    RegisterComponent,
-    LoginComponent,
-    ProfileComponent,
-    LogDashboardComponent,
+    AppComponent
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    CustomFormElementsModule
+    HttpClientModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
