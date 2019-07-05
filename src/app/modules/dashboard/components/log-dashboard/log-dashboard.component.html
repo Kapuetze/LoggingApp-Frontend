@@ -1,11 +1,25 @@
-<div class="uk-container uk-container-expand uk-position-relative">
+<div class="uk-container uk-container-large uk-position-relative">
 	<h1>Dashboard</h1>
-	<div class="uk-grid-match uk-child-width-1-2@s" uk-grid="">
+	<div class="uk-grid-match uk-child-width-1-1@s" uk-grid="">
 		<div *ngFor="let log of logs">
-			<div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body">
+			<div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body" attr.uk-toggle="target: #modal{{log._id}}">
 				<div class="uk-card-badge uk-label">{{ log.label }}</div>
-				<h3 class="uk-card-title">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</h3>				
-			</div>
+				<h3 class="uk-card-title">{{ log.title }} <br> <span class="uk-text-muted uk-text-small">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</span></h3>				
+            </div>
+            <div id="modal{{log._id}}" uk-modal>
+                <div class="uk-modal-dialog">
+                    <div class="uk-modal-header">
+                        <div class="uk-card-badge uk-label">{{ log.label }}</div>
+                        <h3 class="uk-card-title">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</h3>		
+                    </div>
+                    <div class="uk-modal-body" uk-overflow-auto>
+                        <app-log-details [log]="log"></app-log-details>
+                    </div>
+                    <div class="uk-modal-footer">
+                        <button class="uk-button uk-button-default uk-float-right" attr.uk-toggle="target: #{{log._id}}" type="button">Test</button>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
 </div>

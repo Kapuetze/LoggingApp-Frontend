@@ -29,7 +29,8 @@ export class LogService {
     query(){
         var curDate = new Date();
 
-        return this.http.post(environment.apiBase + "/logs/search", { creationDate: { "$gte": curDate.toLocaleDateString("en-US") } }).pipe(
+        //creationDate: { "$gte": curDate.toLocaleDateString("en-US") }
+        return this.http.post(environment.apiBase + "/logs/search", {  }).pipe(
 			map((res) => res as Log),
 			catchError(error => of([]))
 		);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../../user.service';
-import * as UIkit from 'uikit';
+import { NotificationService } from 'src/app/custom-utilities/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -15,28 +15,23 @@ export class LoginComponent implements OnInit {
 		password: new FormControl(null, Validators.required),
 	})
 
-	constructor(private userService: UserService) { }
+	constructor(private _userService: UserService, private _notificationService: NotificationService) { }
 
 	ngOnInit() {
 	}
 
 	login(){
 		if (!this.loginForm.valid) {
-			UIkit.notification({
-				message: 'Invalid credentials!',
-				status: 'danger',
-				pos: 'top-center',
-				timeout: 5000
-			});
+            this._notificationService.notify("Invalid credentials.");
 			console.log(this.loginForm.errors);
 		}else{
-			this.userService.login(JSON.stringify(this.loginForm.value))
+			this._userService.login(JSON.stringify(this.loginForm.value))
 			.subscribe(
 				data => { 
-					this.userService.setSession(data);
+					this._userService.setSession(data);
 				},
 				error => {
-					console.log("Error: " + error.message);
+                    this._notificationService.notify(error.message);
 				}
 			)
 		}
