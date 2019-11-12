@@ -12,11 +12,11 @@ const routes: Routes = [
     // },
     {
         path: 'user',
-        loadChildren: './modules/user/user.module#UserModule'
+        loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
     },
     {
         path: 'dashboard',
-        loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
     }
 ];
 

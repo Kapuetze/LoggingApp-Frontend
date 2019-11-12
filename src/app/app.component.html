@@ -3,7 +3,7 @@
         <ul class="uk-navbar-nav">
             <li class="uk-active"><a *ngIf="userService.isLoggedIn()" [routerLink]="['/dashboard']" routerLinkActive="uk-active">Logs</a></li>
             <li>
-                <a href="#">Parent</a>
+                <a href="#">{{ 'test' | translate }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <li class="uk-active"><a href="#">Active</a></li>
