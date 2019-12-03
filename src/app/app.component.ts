@@ -11,13 +11,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   name = '';
 
-  constructor(private userService: UserService, private translateService: TranslateService) {
+  constructor(private _userService: UserService, 
+    private _translateService: TranslateService,
+    private _router: Router) {
 
-    this.translateService.setDefaultLang('en-US');
-    if (this.translateService.getBrowserLang() !== '') {
-        this.translateService.use(this.translateService.getBrowserLang());
+    this._translateService.setDefaultLang('en-US');
+    if (this._translateService.getBrowserLang() !== '') {
+        this._translateService.use(this._translateService.getBrowserLang());
     } else {
-        this.translateService.use('en-US'); // Set your language    
+        this._translateService.use('en-US'); // Set your language    
     }
   }
 
@@ -26,6 +28,8 @@ export class AppComponent {
   }
 
   public logout(){
-    this.userService.logout();
+    this._userService.logout();
+    // Navigate to the login page with extras
+    this._router.navigate(['/user', 'login']);
   }
 }

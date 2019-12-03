@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 //import the authentication JWT HTTP interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
+import { AuthGuard } from './shared/auth/auth.guard';
 import { CustomUtilitiesModule } from './custom-utilities/custom-utilities.module';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -19,7 +20,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
 	declarations: [
-		AppComponent
+        AppComponent
 	],
 	imports: [
 		BrowserModule,
