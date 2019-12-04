@@ -63,4 +63,8 @@ export class UserService {
         const expiresAt = JSON.parse(expiration);
         return moment(expiresAt);
     }    
+
+    public getUserName(){
+        return localStorage.getItem('user_firstname');
+    }
 }

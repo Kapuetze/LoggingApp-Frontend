@@ -1,9 +1,9 @@
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a *ngIf="_userService.isLoggedIn()" [routerLink]="['/dashboard']" routerLinkActive="uk-active">Logs</a></li>
-            <li>
-                <a href="#">{{ 'test' | translate }}</a>
+            <li *ngIf="_userService.isLoggedIn()" class="uk-active"><a [routerLink]="['/dashboard']" routerLinkActive="uk-active">Dashboard</a></li>
+            <li *ngIf="_userService.isLoggedIn()">
+                <a [routerLink]="['/container']" routerLinkActive="uk-active">{{ 'nav.containers' | translate }}</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <li class="uk-active"><a href="#">Active</a></li>
@@ -23,9 +23,9 @@
                 <a *ngIf="!_userService.isLoggedIn()" [routerLink]="['/user/register']" routerLinkActive="uk-active">Register</a>
             </li>
             <li>
-                <a *ngIf="_userService.isLoggedIn()" [routerLink]="['/user/profile']" routerLinkActive="uk-active">{{ getUserName() }}</a>
+                <a *ngIf="_userService.isLoggedIn()" [routerLink]="['/user/profile']" routerLinkActive="uk-active">{{ _userService.getUserName() }}</a>
             </li>
-            <li >
+            <li>
                 <a *ngIf="_userService.isLoggedIn()" href="javascript:;" (click)="logout()">Logout</a>
             </li>
         </ul>

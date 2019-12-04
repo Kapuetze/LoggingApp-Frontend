@@ -23,10 +23,6 @@ export class AppComponent {
     }
   }
 
-  public getUserName(){
-    return localStorage.getItem('user_firstname');
-  }
-
   public logout(){
     this._userService.logout();
     // Navigate to the login page with extras

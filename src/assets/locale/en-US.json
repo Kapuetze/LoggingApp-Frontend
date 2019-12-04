@@ -1,3 +1,6 @@
 {
-    "test": "ENGLISCH"
+    "test": "ENGLISCH",
+    "nav": {
+        "containers": "Containers"
+    }
 }

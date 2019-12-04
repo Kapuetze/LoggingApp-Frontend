@@ -1,3 +1,6 @@
 {
-    "test": "DEUTSCH"
+    "test": "DEUTSCH",
+    "nav": {
+        "containers": "Kontainer"
+    }
 }
