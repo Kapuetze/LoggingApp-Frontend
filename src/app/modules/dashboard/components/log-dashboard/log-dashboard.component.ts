@@ -19,8 +19,6 @@ export class LogDashboardComponent implements OnInit {
   	ngOnInit() {
 		this.logService.query().subscribe(
 			data => this.logs = data as Log[]
-        )
-        
-        this.logService
+        );
 	}
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Container } from '@models/container';
+import { ContainerService } from '../container.service';
 
 @Component({
   selector: 'app-container-manage',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerManageComponent implements OnInit {
 
-  constructor() { }
+    container: Container;
 
-  ngOnInit() {
-  }
+    constructor(private _route: ActivatedRoute, private _containerService: ContainerService) {
+        this._route.params.subscribe( params => {   
+                if (params.id) {
+                    this._containerService.get(params.id).subscribe(
+                        data => this.container = data as Container
+                    )
+                }    
+            }        
+        );
+    }
+
+    ngOnInit() {
+    }
 
 }

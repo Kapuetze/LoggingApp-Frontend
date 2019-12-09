@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ContainerService } from '../container.service';
+import { Container } from '@models/container';
 
 @Component({
   selector: 'app-container-list',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerListComponent implements OnInit {
 
-  constructor() { }
+    containers: Container[];
 
-  ngOnInit() {
-  }
+  	constructor(private _containerService: ContainerService) { }
+
+  	ngOnInit() {
+		this._containerService.getContainers().subscribe(
+			data => this.containers = data as Container[]
+        );
+	}
 
 }
