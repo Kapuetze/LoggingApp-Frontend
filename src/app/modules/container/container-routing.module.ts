@@ -5,7 +5,8 @@ import { ContainerManageComponent } from './container-manage/container-manage.co
 
 const routes: Routes = [
     { path: '', component: ContainerListComponent },
-    { path: 'manage/:id', component: ContainerManageComponent }
+    { path: 'manage/:id', component: ContainerManageComponent },
+    { path: 'manage/', component: ContainerManageComponent }
 ];
 
 @NgModule({

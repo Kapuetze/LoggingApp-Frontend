@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContainerListComponent } from './container-list/container-list.component';
 import { ContainerManageComponent } from './container-manage/container-manage.component';
 import { ContainerRoutingModule } from './container-routing.module';
+import { CustomFormElementsModule } from 'src/app/custom-form-elements/custom-form-elements.module';
 
 @NgModule({
     declarations: [
@@ -11,7 +12,8 @@ import { ContainerRoutingModule } from './container-routing.module';
     ],
     imports: [
         CommonModule,
-        ContainerRoutingModule
+        ContainerRoutingModule,
+        CustomFormElementsModule
     ]
 })
 export class ContainerModule { }

@@ -12,6 +12,7 @@ export class TextInputComponent implements OnInit {
   @Input() label: string;
   @Input() type: string = "text";
   @Input() placeholder: string;
+  @Input() value: string;
 
   @Input() parentForm: FormGroup;
 

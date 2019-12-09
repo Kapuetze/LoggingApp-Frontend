@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Container } from '@models/container';
 import { ContainerService } from '../container.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-container-manage',
@@ -11,6 +12,10 @@ import { ContainerService } from '../container.service';
 export class ContainerManageComponent implements OnInit {
 
     container: Container;
+
+    containerForm : FormGroup = new FormGroup({
+		name: new FormControl(null, Validators.required)
+	})
 
     constructor(private _route: ActivatedRoute, private _containerService: ContainerService) {
         this._route.params.subscribe( params => {   
