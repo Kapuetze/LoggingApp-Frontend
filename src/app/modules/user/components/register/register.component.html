@@ -1,13 +1,11 @@
-<div class="uk-container uk-container-small uk-position-relative">
-	<div class="uk-grid-match uk-child-width-1-1" uk-grid>
-		<h1>Sign Up</h1>
-        <form [formGroup]="registerForm" (submit)="register()" class="uk-grid-small uk-child-width-1-1" uk-grid>
-            <app-text-input [parentForm]="registerForm" type="email" label="E-Mail" placeholder="E-Mail" id="email"></app-text-input>
-            <app-text-input [parentForm]="registerForm" type="password" label="Password" placeholder="Password" id="password"></app-text-input>
-            <app-text-input [parentForm]="registerForm" type="password" label="Confirm Password" placeholder="Confirm Password" id="cpassword"></app-text-input>
-            <div>
-                <button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!registerForm.valid">Register</button>
-            </div>
-        </form>
-	</div>
+<div class="uk-grid-match uk-child-width-1-1" uk-grid>
+    <h1>Sign Up</h1>
+    <form [formGroup]="registerForm" (submit)="register()" class="uk-grid-small uk-child-width-1-1" uk-grid>
+        <app-text-input [parentForm]="registerForm" type="email" label="E-Mail" placeholder="E-Mail" id="email"></app-text-input>
+        <app-text-input [parentForm]="registerForm" type="password" label="Password" placeholder="Password" id="password"></app-text-input>
+        <app-text-input [parentForm]="registerForm" type="password" label="Confirm Password" placeholder="Confirm Password" id="cpassword"></app-text-input>
+        <div>
+            <button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!registerForm.valid">Register</button>
+        </div>
+    </form>
 </div>

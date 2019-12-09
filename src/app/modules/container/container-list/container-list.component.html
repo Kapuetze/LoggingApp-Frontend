@@ -1,14 +1,12 @@
-<div class="uk-container uk-container-large uk-position-relative">
-    <h1>
-        Containers
-        <button class="uk-button uk-button-primary uk-float-right" [routerLink]="['/container/manage']">New</button>
-    </h1>
-	<div class="uk-grid-match uk-child-width-1-1@s" uk-grid="">
-		<div *ngFor="let container of containers">
-			<div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body">
-                <h3 class="uk-card-title">{{ container.name }} <br> <span class="uk-text-muted uk-text-small">{{ container.creationDate | date: 'y/M/d hh:mm:ss' }}</span></h3>	
-                <button class="uk-button uk-button-default uk-float-right" [routerLink]="['/container/manage/'+container._id]">Edit</button>			
-            </div>
-		</div>
-	</div>
+<h1>
+    Containers
+    <button class="uk-button uk-button-primary uk-float-right" [routerLink]="['/container/manage']">New</button>
+</h1>
+<div class="uk-grid-match uk-child-width-1-1@s" uk-grid="">
+    <div *ngFor="let container of containers">
+        <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body">
+            <h3 class="uk-card-title">{{ container.name }} <br> <span class="uk-text-muted uk-text-small">{{ container.creationDate | date: 'y/M/d hh:mm:ss' }}</span></h3>	
+            <button class="uk-button uk-button-default uk-float-right" [routerLink]="['/container/manage/'+container._id]">Edit</button>			
+        </div>
+    </div>
 </div>
