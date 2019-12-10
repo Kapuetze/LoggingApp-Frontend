@@ -4,7 +4,7 @@
         <app-select [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
     </div>
     <div>
-        
+        <app-select [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
     </div>
     <div *ngFor="let log of logs">
         <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body" attr.uk-toggle="target: #modal{{log._id}}">

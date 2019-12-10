@@ -6,10 +6,12 @@ import { LogModule } from '../log/log.module';
 import { LogDashboardComponent } from './components/log-dashboard/log-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { CustomFormElementsModule } from 'src/app/custom-form-elements/custom-form-elements.module';
+import { LogFilterOptionsComponent } from './components/log-filter-options/log-filter-options.component';
 
 @NgModule({
   declarations: [
-      LogDashboardComponent
+      LogDashboardComponent,
+      LogFilterOptionsComponent
   ],
   imports: [
     CommonModule,
