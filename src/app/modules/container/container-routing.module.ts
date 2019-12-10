@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContainerListComponent } from './container-list/container-list.component';
 import { ContainerManageComponent } from './container-manage/container-manage.component';
+import { ContainerAddComponent } from './container-add/container-add.component';
 
 const routes: Routes = [
     { path: '', component: ContainerListComponent },
-    { path: 'manage/:id', component: ContainerManageComponent },
-    { path: 'manage/', component: ContainerManageComponent }
+    { path: 'add', component: ContainerAddComponent },
+    { path: 'edit/:id', component: ContainerManageComponent }
 ];
 
 @NgModule({

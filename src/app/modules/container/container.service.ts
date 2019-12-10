@@ -1,6 +1,6 @@
 import { environment } from '@environment/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Container } from "@models/container";
 
 import { Observable, of } from 'rxjs';
@@ -12,6 +12,14 @@ import { map, catchError } from "rxjs/operators";
 export class ContainerService {
 
     constructor(private _http: HttpClient) { }
+
+    //create a new container
+  	create(body: any){
+		return this._http.post(environment.apiBase + "/container", body, {
+			observe: "body",
+			headers: new HttpHeaders().append("Content-Type", "application/json")
+		});
+	}
 
     getContainers() {
         return this._http.get(environment.apiBase + "/container").pipe(

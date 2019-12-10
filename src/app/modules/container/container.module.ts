@@ -4,11 +4,12 @@ import { ContainerListComponent } from './container-list/container-list.componen
 import { ContainerManageComponent } from './container-manage/container-manage.component';
 import { ContainerRoutingModule } from './container-routing.module';
 import { CustomFormElementsModule } from 'src/app/custom-form-elements/custom-form-elements.module';
+import { ContainerAddComponent } from './container-add/container-add.component';
 
 @NgModule({
     declarations: [
         ContainerListComponent, 
-        ContainerManageComponent
+        ContainerManageComponent, ContainerAddComponent
     ],
     imports: [
         CommonModule,

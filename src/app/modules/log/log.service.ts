@@ -26,11 +26,11 @@ export class LogService {
 		);
     }
     
-    query(){
+    queryForContainer(id: string){
         var curDate = new Date();
 
         //creationDate: { "$gte": curDate.toLocaleDateString("en-US") }
-        return this.http.post(environment.apiBase + "/logs/search", {  }).pipe(
+        return this.http.post(environment.apiBase + "/logs/search/" + id, {  }).pipe(
 			map((res) => res as Log),
 			catchError(error => of([]))
 		);

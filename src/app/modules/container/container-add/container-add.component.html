@@ -1,0 +1,10 @@
+<div class="uk-container uk-container-small">
+    <h1>New Container</h1>
+    <form [formGroup]="containerForm" (submit)="add()" class="uk-grid-small uk-child-width-1-1 uk-padding-remove" uk-grid>
+        <app-text-input [parentForm]="containerForm" type="text" label="Name" placeholder="Name" id="name"></app-text-input>
+        <div>
+            <button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!containerForm.valid">Add</button>
+        </div>
+    </form>
+</div>
+    
