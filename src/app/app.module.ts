@@ -13,7 +13,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { CustomUtilitiesModule } from './custom-utilities/custom-utilities.module';
-import { LogFilterOptionsComponent } from './dashboard/log-filter-options/log-filter-options.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/locale/', '.json');
@@ -21,8 +20,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
 	declarations: [
-        AppComponent,
-        LogFilterOptionsComponent
+        AppComponent
 	],
 	imports: [
 		BrowserModule,

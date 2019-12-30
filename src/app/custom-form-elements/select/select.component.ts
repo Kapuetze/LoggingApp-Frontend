@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,12 +8,13 @@ import { FormGroup } from '@angular/forms';
 })
 export class SelectComponent implements OnInit {
 
+    @ViewChild("appSelect", { static: true }) selectElement: ElementRef;
     @Input() id: string;
     @Input() label: string;
     @Input() options: any[];
     @Input() value: string;
     @Output() changed = new EventEmitter<string>();
-  
+
     @Input() parentForm: FormGroup;
     
     constructor() { }
@@ -21,4 +22,9 @@ export class SelectComponent implements OnInit {
     ngOnInit() {
     }
 
+    setValue(value: String){
+        this.selectElement.nativeElement.value = value;
+        this.selectElement.nativeElement.dispatchEvent(new Event('change'));
+        console.log("Selected: " + this.selectElement.nativeElement.value);
+    }
 }

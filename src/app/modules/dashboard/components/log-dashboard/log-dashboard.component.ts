@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Log } from '@models/log';
 import { LogService } from 'src/app/modules/log/log.service';
 import { Container } from '@models/container';
 import { ContainerService } from 'src/app/modules/container/container.service';
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, last } from "rxjs/operators";
+import { SelectComponent } from 'src/app/custom-form-elements/select/select.component';
 
 @Component({
   selector: 'app-log-dashboard',
@@ -13,6 +14,8 @@ import { map, catchError } from "rxjs/operators";
 export class LogDashboardComponent implements OnInit {
 
     logs: Log[];
+
+    @ViewChild("containerSelect", { static: true }) containerSelect: SelectComponent;
     containerOptions: any[];
     objectKeys = Object.keys;
     
@@ -27,6 +30,18 @@ export class LogDashboardComponent implements OnInit {
                 containers = data as Container[];
                 
                 this.containerOptions = containers.map(i => ({ name: i.name, value: i._id }));
+                
+                //load default container or last used container
+                let lastContainerId = sessionStorage.getItem("last_container");
+                if (this.containerOptions.findIndex(i => i.value == lastContainerId) > -1) {
+                    //this.loadLogs(lastContainerId);
+                    this.containerSelect.setValue(lastContainerId);
+                }else if (this.containerOptions.length > 0) {
+                    //this.loadLogs(this.containerOptions[0].value);
+                    this.containerSelect.setValue(this.containerOptions[0].value);
+                } else {
+                    console.log("Please create a container first.");
+                }
             }
         );
 
@@ -36,5 +51,8 @@ export class LogDashboardComponent implements OnInit {
         this._logService.queryForContainer(id).subscribe(
 			data => this.logs = data as Log[]
         );
+
+        //save last container in session storage
+        sessionStorage.setItem("last_container", id);
     }
 }
