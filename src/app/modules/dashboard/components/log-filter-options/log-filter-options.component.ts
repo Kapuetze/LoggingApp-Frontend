@@ -15,8 +15,8 @@ export class LogFilterOptionsComponent implements OnInit {
     ];
 
     filterForm : FormGroup = new FormGroup({
-		field: new FormControl(null, Validators.required),
-		operator: new FormControl(null, Validators.required),
+		property: new FormControl(null, Validators.required),
+		operator: new FormControl(),
 		value: new FormControl(null, Validators.required)
 	})
 

@@ -1,8 +1,0 @@
-<form [formGroup]="filterForm" (submit)="login()" class="uk-grid-small uk-child-width-1-4 uk-padding-remove" uk-grid>
-    <app-text-input [parentForm]="filterForm" type="text" placeholder="Property" id="property"></app-text-input>
-    <app-select [parentForm]="" [options]="operatorOptions" id="operator"></app-select>
-    <app-text-input [parentForm]="filterForm" type="text" placeholder="Value" id="value"></app-text-input>
-    <div>
-        <button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!filterForm.valid">Filter</button>
-    </div>
-</form>

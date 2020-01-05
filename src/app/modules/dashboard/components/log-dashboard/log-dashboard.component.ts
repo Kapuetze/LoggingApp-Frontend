@@ -5,6 +5,7 @@ import { Container } from '@models/container';
 import { ContainerService } from 'src/app/modules/container/container.service';
 import { map, catchError, last } from "rxjs/operators";
 import { SelectComponent } from 'src/app/custom-form-elements/select/select.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-log-dashboard',
@@ -20,6 +21,18 @@ export class LogDashboardComponent implements OnInit {
     objectKeys = Object.keys;
     
     logCount: number = 0;
+
+    operatorOptions: any[] = [
+        { name: "==", value: "==" },
+        { name: "<", value: "<" },
+        { name: ">", value: ">" },
+    ];
+
+    filterForm : FormGroup = new FormGroup({
+		property: new FormControl(null, Validators.required),
+		operator: new FormControl(),
+		value: new FormControl(null, Validators.required)
+	})
 
   	constructor(private _logService:LogService, private _containerService: ContainerService) { }
 
@@ -47,7 +60,11 @@ export class LogDashboardComponent implements OnInit {
 
     }
     
-    loadLogs(id: string){
+    loadLogs(id: string, query: any){
+
+        if (query != null) {
+            
+        }
         this._logService.queryForContainer(id).subscribe(
 			data => this.logs = data as Log[]
         );
