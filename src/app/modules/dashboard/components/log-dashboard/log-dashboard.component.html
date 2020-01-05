@@ -4,7 +4,7 @@
         <app-select #containerSelect [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
     </div>
     <div>
-        <form [formGroup]="filterForm" (submit)="login()" class="uk-grid-small uk-child-width-1-4 uk-padding-remove" uk-grid>
+        <form [formGroup]="filterForm" (submit)="applyFilter()" class="uk-grid-small uk-child-width-1-4 uk-padding-remove" uk-grid>
             <app-text-input [parentForm]="filterForm" type="text" placeholder="Property" id="property"></app-text-input>
             <app-select [parentForm]="filterForm" [options]="operatorOptions" id="operator"></app-select>
             <app-text-input [parentForm]="filterForm" type="text" placeholder="Value" id="value"></app-text-input>

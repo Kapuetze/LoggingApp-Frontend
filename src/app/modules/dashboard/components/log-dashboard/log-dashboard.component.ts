@@ -6,6 +6,7 @@ import { ContainerService } from 'src/app/modules/container/container.service';
 import { map, catchError, last } from "rxjs/operators";
 import { SelectComponent } from 'src/app/custom-form-elements/select/select.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/custom-utilities/notification.service';
 
 @Component({
   selector: 'app-log-dashboard',
@@ -34,8 +35,9 @@ export class LogDashboardComponent implements OnInit {
 		value: new FormControl(null, Validators.required)
 	})
 
-  	constructor(private _logService:LogService, private _containerService: ContainerService) { }
+  	constructor(private _logService:LogService, private _containerService: ContainerService, private _notificationService: NotificationService) { }
 
+    //load logs for default container
   	ngOnInit() {
         this._containerService.getContainers().subscribe(
 			data => {
@@ -45,7 +47,7 @@ export class LogDashboardComponent implements OnInit {
                 this.containerOptions = containers.map(i => ({ name: i.name, value: i._id }));
                 
                 //load default container or last used container
-                let lastContainerId = sessionStorage.getItem("last_container");
+                let lastContainerId = this.getCurrentContainer();
                 if (this.containerOptions.findIndex(i => i.value == lastContainerId) > -1) {
                     //this.loadLogs(lastContainerId);
                     this.containerSelect.setValue(lastContainerId);
@@ -59,17 +61,60 @@ export class LogDashboardComponent implements OnInit {
         );
 
     }
-    
-    loadLogs(id: string, query: any){
+
+    applyFilter(){
+
+        if (!this.filterForm.valid) {
+            this._notificationService.notify("The form is invalid.");
+		}else{
+            let query = {};
+            
+            //build query object from form values
+            let prop = this.filterForm.get("property").value;
+            let operator = this.filterForm.get("operator").value;
+            let value = this.filterForm.get("value").value;
+
+            debugger;
+
+            let queryVal;
+            switch (operator) {
+                case "==":
+                    queryVal = value;
+                    break;
+                case "<":
+                    queryVal = { "$lt": value };
+                    break;
+                case ">":
+                    queryVal = { "$gt": value };
+                    break;
+                default:
+                    break;
+            }
+            query["content." + prop] = queryVal;
+
+            //load logs with query values
+            this.loadLogs(this.getCurrentContainer(), query);
+		}
+    }
+
+    loadLogs(id: string, query: any = null): void{
 
         if (query != null) {
             
         }
-        this._logService.queryForContainer(id).subscribe(
+        this._logService.queryForContainer(id, query).subscribe(
 			data => this.logs = data as Log[]
         );
 
         //save last container in session storage
-        sessionStorage.setItem("last_container", id);
+        this.setCurrentContainer(id);
+    }
+
+    getCurrentContainer(): string{
+        return sessionStorage.getItem("current_container");
+    }
+
+    setCurrentContainer(id: string): void{
+        sessionStorage.setItem("current_container", id);
     }
 }
