@@ -3,6 +3,9 @@
     <div>
         <app-select #containerSelect [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
     </div>
+    <div>
+        <app-log-filter-options></app-log-filter-options>
+    </div>
     <div *ngFor="let log of logs">
         <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body" attr.uk-toggle="target: #modal{{log._id}}">
             <div class="uk-card-badge uk-label">{{ log.label }}</div>
