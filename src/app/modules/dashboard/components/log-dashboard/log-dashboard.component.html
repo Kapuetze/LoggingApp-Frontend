@@ -1,17 +1,28 @@
 
 <div class="uk-grid-match uk-child-width-1-1@s" uk-grid="">
     <div>
-        <app-select #containerSelect [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
+        <form [formGroup]="containerForm">
+            <app-select id="container" [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
+        </form>
     </div>
     <div>
-        <form [formGroup]="filterForm" (submit)="applyFilter()" class="uk-grid-small uk-child-width-1-4 uk-padding-remove" uk-grid>
-            <app-text-input [parentForm]="filterForm" type="text" placeholder="Property" id="property"></app-text-input>
-            <app-select [parentForm]="filterForm" [options]="operatorOptions" id="operator"></app-select>
-            <app-text-input [parentForm]="filterForm" type="text" placeholder="Value" id="value"></app-text-input>
-            <div>
-                <button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!filterForm.valid">Filter</button>
-            </div>
-        </form>
+        <form [formGroup]="filterForm" class="uk-grid-small uk-child-width-1-3 uk-padding-remove" uk-grid>
+            <input type="hidden" value="1" formControlName="showForm">
+            <ng-container *ngIf="filterForm.controls.showForm.value">    
+                <ng-container formArrayName="filters" *ngFor="let filter of filterForm.controls.filters?.value">
+                    <ng-container [formGroupName]="index">
+                        <app-text-input [parentForm]="index" type="text" placeholder="Property" id="property"></app-text-input>
+                        <app-select [parentForm]="index" [options]="operatorOptions" id="operator"></app-select>
+                        <app-text-input [parentForm]="index" type="text" placeholder="Value" id="value"></app-text-input>
+                    </ng-container>
+                </ng-container>
+
+                <button (click)="addFilterGroup()" class="uk-width-1-1 uk-button uk-button-default">Add</button>
+            </ng-container>
+          </form>
+    </div>
+    <div>
+        <button class="uk-button uk-button-primary uk-width-expand" (click)="applyFilter()" [disabled]="!filterForm.valid">Filter</button>
     </div>
     <div *ngFor="let log of logs">
         <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body" attr.uk-toggle="target: #modal{{log._id}}">

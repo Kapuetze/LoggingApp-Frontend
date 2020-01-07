@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class SelectComponent implements OnInit {
 
-    @ViewChild("appSelect", { static: true }) selectElement: ElementRef;
+    @ViewChild("appSelect", { static: true }) selectElement;
     @Input() id: string;
     @Input() label: string;
     @Input() options: any[];
@@ -20,7 +20,7 @@ export class SelectComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        console.log(this.options);
+
     }
 
     setValue(value: String){
