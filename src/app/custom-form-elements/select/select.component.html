@@ -1,6 +1,6 @@
 <label for="{{id}}" class="uk-form-label" [formGroup]="parentForm">
     {{label}}
-    <select class="uk-select" #appSelect (change)="changed.emit(appSelect.value)">
-        <option [value]="option.value" *ngFor="let option of options">{{ option.name }}</option>
+    <select class="uk-select" #appSelect [formControlName]="id" [id]="id" [name]="id" (change)="changed.emit(appSelect.value)">
+        <option [value]="option.value" *ngFor="let option of options" [attr.selected]="option.value == options[0].value ? '' : null">{{ option.name }}</option>
     </select>
 </label>

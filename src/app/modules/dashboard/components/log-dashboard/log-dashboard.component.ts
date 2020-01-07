@@ -74,7 +74,10 @@ export class LogDashboardComponent implements OnInit {
             let operator = this.filterForm.get("operator").value;
             let value = this.filterForm.get("value").value;
 
-            debugger;
+            //transform value to a number
+            if (!isNaN(value)) {
+                value = parseFloat(value);
+            }
 
             let queryVal;
             switch (operator) {

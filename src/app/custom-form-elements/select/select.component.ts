@@ -20,6 +20,7 @@ export class SelectComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+        console.log(this.options);
     }
 
     setValue(value: String){
