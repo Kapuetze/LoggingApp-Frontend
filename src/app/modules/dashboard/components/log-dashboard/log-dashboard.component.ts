@@ -19,6 +19,7 @@ export class LogDashboardComponent implements OnInit {
 
     @ViewChild("containerSelect", { static: true }) containerSelect: SelectComponent;
     containerOptions: any[];
+    propertyOptions: any[];
     objectKeys = Object.keys;
     
     logCount: number = 0;
@@ -29,6 +30,11 @@ export class LogDashboardComponent implements OnInit {
         { name: ">", value: ">" },
     ];
 
+    connectorOptions: any[] = [
+        { name: "AND", value: "AND" },
+        { name: "OR", value: "OR" },
+    ];
+
     containerForm : FormGroup = new FormGroup({
         container: new FormControl()
     });
@@ -37,19 +43,6 @@ export class LogDashboardComponent implements OnInit {
         showForm: new FormControl(true),
 		filters: new FormArray([this.newFilterGroup()])
 	});
-
-    addFilterGroup(){
-        let filters = this.filterForm.get("filters") as FormArray;
-        filters.push(this.newFilterGroup());
-    }
-
-    newFilterGroup() : FormGroup {
-        return new FormGroup({
-            property: new FormControl(null, Validators.required),
-            operator: new FormControl(),
-            value: new FormControl(null, Validators.required)
-        });
-    } 
 
   	constructor(private _logService:LogService, private _containerService: ContainerService, private _notificationService: NotificationService) { }
 
@@ -66,17 +59,44 @@ export class LogDashboardComponent implements OnInit {
                 //load default container or last used container
                 let lastContainerId = this.getCurrentContainer();
                 if (this.containerOptions.findIndex(i => i.value == lastContainerId) > -1) {
-                    //this.loadLogs(lastContainerId);
-                    this.containerForm.get("container").setValue(lastContainerId, { onlySelf: true });
+                    this.switchContainer(lastContainerId);
                 }else if (this.containerOptions.length > 0) {
-                    //this.loadLogs(this.containerOptions[0].value);
-                    this.containerForm.get("container").setValue(this.containerOptions[0].value, { onlySelf: true });
+                    this.switchContainer(this.containerOptions[0].value);
                 } else {
                     console.log("Please create a container first.");
                 }
             }
         );
 
+    }
+
+    addFilterGroup(){
+        let filters = this.filterForm.get("filters") as FormArray;
+        filters.push(this.newFilterGroup());
+    }
+
+    removeFilterGroup(index: number){
+        let filters = this.filterForm.get("filters") as FormArray;
+        filters.removeAt(index);
+    }
+
+    newFilterGroup() : FormGroup {
+        return new FormGroup({
+            property: new FormControl(null, Validators.required),
+            operator: new FormControl(),
+            connector: new FormControl(),
+            value: new FormControl(null, Validators.required)
+        });
+    }
+
+    getPossibleProperties(id: string){
+        this._logService.getPropertyNamesForContainer(id).subscribe(
+			data => {
+                let properties: String[];
+                properties = data as String[];        
+                this.propertyOptions = properties.map(i => ({ name: i, value: i }));
+            }
+        );
     }
 
     applyFilter(){
@@ -128,6 +148,12 @@ export class LogDashboardComponent implements OnInit {
 
         //save last container in session storage
         this.setCurrentContainer(id);
+    }
+
+    switchContainer(id: string){
+        this.containerForm.get("container").setValue(id, { onlySelf: true });
+        this.getPossibleProperties(id);
+        this.loadLogs(id);
     }
 
     getCurrentContainer(): string{

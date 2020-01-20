@@ -2,22 +2,31 @@
 <div class="uk-grid-match uk-child-width-1-1@s" uk-grid="">
     <div>
         <form [formGroup]="containerForm">
-            <app-select id="container" [options]="containerOptions" (changed)="loadLogs($event)"></app-select>
+            <app-select id="container" [options]="containerOptions" (changed)="switchContainer($event)"></app-select>
         </form>
     </div>
     <div>
-        <form [formGroup]="filterForm" class="uk-grid-small uk-child-width-1-3 uk-padding-remove" uk-grid>
+        <form [formGroup]="filterForm" class="uk-grid-small uk-child-width-1-4 uk-padding-remove" uk-grid>
             <input type="hidden" value="1" formControlName="showForm">
             <ng-container *ngIf="filterForm.controls.showForm.value">    
-                <ng-container formArrayName="filters" *ngFor="let filter of filterForm.controls.filters?.value">
+                <ng-container formArrayName="filters" *ngFor="let filter of filterForm.controls.filters?.value; let i = index;">
                     <ng-container [formGroupName]="index">
-                        <app-text-input [parentForm]="index" type="text" placeholder="Property" id="property"></app-text-input>
+                        <!-- <app-text-input [parentForm]="index" type="text" placeholder="Property" id="property"></app-text-input> -->
+                        <app-select [parentForm]="index" [options]="propertyOptions" id="property"></app-select>
                         <app-select [parentForm]="index" [options]="operatorOptions" id="operator"></app-select>
                         <app-text-input [parentForm]="index" type="text" placeholder="Value" id="value"></app-text-input>
+                        <div>
+                            <div id="connector-options-wrapper">
+                                <app-select [parentForm]="index" [options]="connectorOptions" id="connector"></app-select>
+                            </div>
+                            <button class="uk-button uk-button-default uk-float-right" (click)="removeFilterGroup(i)">X</button>
+                        </div>
                     </ng-container>
                 </ng-container>
 
-                <button (click)="addFilterGroup()" class="uk-width-1-1 uk-button uk-button-default">Add</button>
+                <div class="uk-width-1-1">
+                    <button (click)="addFilterGroup()" class="uk-button uk-button-default uk-width-expand">Add</button>
+                </div>
             </ng-container>
           </form>
     </div>

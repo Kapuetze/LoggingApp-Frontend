@@ -25,6 +25,13 @@ export class LogService {
 			catchError(error => of([]))
 		);
     }
+
+    getPropertyNamesForContainer(id: string) {
+		return this.http.get(environment.apiBase + "/logs/properties/" + id).pipe(
+			map((res) => res as string),
+			catchError(error => of([]))
+		);
+    }
     
     queryForContainer(id: string, query: any){
         if (query == null) {
