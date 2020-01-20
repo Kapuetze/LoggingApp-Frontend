@@ -82,10 +82,10 @@ export class LogDashboardComponent implements OnInit {
 
     newFilterGroup() : FormGroup {
         return new FormGroup({
-            property: new FormControl(null, Validators.required),
+            property: new FormControl(),
             operator: new FormControl(),
             connector: new FormControl(),
-            value: new FormControl(null, Validators.required)
+            value: new FormControl()
         });
     }
 
@@ -106,32 +106,38 @@ export class LogDashboardComponent implements OnInit {
 		}else{
             let query = {};
             
-            //build query object from form values
-            let prop = this.filterForm.get("property").value;
-            let operator = this.filterForm.get("operator").value;
-            let value = this.filterForm.get("value").value;
+            let filters = this.filterForm.get("filters") as FormArray;
+            for (let control of filters.controls) {
 
-            //transform value to a number
-            if (!isNaN(value)) {
-                value = parseFloat(value);
+                let fg = control as FormGroup;
+
+                debugger;
+                //build query object from form values
+                let prop = fg.get("property").value;
+                let operator = fg.get("operator").value;
+                let value = fg.get("value").value;
+
+                //transform value to a number
+                if (!isNaN(value)) {
+                    value = parseFloat(value);
+                }
+
+                let queryVal;
+                switch (operator) {
+                    case "==":
+                        queryVal = value;
+                        break;
+                    case "<":
+                        queryVal = { "$lt": value };
+                        break;
+                    case ">":
+                        queryVal = { "$gt": value };
+                        break;
+                    default:
+                        break;
+                }
+                query[prop] = queryVal;
             }
-
-            let queryVal;
-            switch (operator) {
-                case "==":
-                    queryVal = value;
-                    break;
-                case "<":
-                    queryVal = { "$lt": value };
-                    break;
-                case ">":
-                    queryVal = { "$gt": value };
-                    break;
-                default:
-                    break;
-            }
-            query["content." + prop] = queryVal;
-
             //load logs with query values
             this.loadLogs(this.getCurrentContainer(), query);
 		}

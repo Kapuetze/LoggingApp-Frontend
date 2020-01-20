@@ -9,17 +9,19 @@
         <form [formGroup]="filterForm" class="uk-grid-small uk-child-width-1-4 uk-padding-remove" uk-grid>
             <input type="hidden" value="1" formControlName="showForm">
             <ng-container *ngIf="filterForm.controls.showForm.value">    
-                <ng-container formArrayName="filters" *ngFor="let filter of filterForm.controls.filters?.value; let i = index;">
-                    <ng-container [formGroupName]="index">
+                <ng-container formArrayName="filters" *ngFor="let filterGroup of filterForm.controls.filters?.value; let i = index;">
+                    <ng-container [formGroup]="filterGroup">
                         <!-- <app-text-input [parentForm]="index" type="text" placeholder="Property" id="property"></app-text-input> -->
-                        <app-select [parentForm]="index" [options]="propertyOptions" id="property"></app-select>
-                        <app-select [parentForm]="index" [options]="operatorOptions" id="operator"></app-select>
-                        <app-text-input [parentForm]="index" type="text" placeholder="Value" id="value"></app-text-input>
+                        <app-select [parentForm]="filterGroup" [options]="propertyOptions" id="property"></app-select>
+                        <app-select [parentForm]="filterGroup" [options]="operatorOptions" id="operator"></app-select>
+                        <app-text-input [parentForm]="filterGroup" type="text" placeholder="Value" id="value"></app-text-input>
                         <div>
-                            <div id="connector-options-wrapper">
-                                <app-select [parentForm]="index" [options]="connectorOptions" id="connector"></app-select>
+                            <div class="options-wrapper uk-float-left">
+                                <app-select [parentForm]="filterGroup" [options]="connectorOptions" id="connector"></app-select>
                             </div>
-                            <button class="uk-button uk-button-default uk-float-right" (click)="removeFilterGroup(i)">X</button>
+                            <div class="options-wrapper uk-float-right">
+                                <button class="uk-button uk-button-default" (click)="removeFilterGroup(i)">X</button>
+                            </div>
                         </div>
                     </ng-container>
                 </ng-container>
