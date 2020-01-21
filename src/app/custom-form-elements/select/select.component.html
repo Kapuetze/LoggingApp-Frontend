@@ -1,6 +1,16 @@
-<label for="{{id}}" class="uk-form-label" [attr.formGroup]="parentForm != null ? parentForm : null">
-    {{label}}
-    <select class="app-select" #appSelect [attr.formControlName]="parentForm != null ? id : null" [id]="id" [name]="id" (change)="changed.emit(appSelect.value)">
-        <option [value]="option.value" *ngFor="let option of options">{{ option.name }}</option>
-    </select>
-</label>
+<ng-container *ngIf="parentForm != null">
+    <label for="{{id}}" class="uk-form-label" [formGroup]="parentForm">
+        {{label}}
+        <select class="app-select" #appSelect [formControlName]="id" (change)="changed.emit(appSelect.value)">
+            <option [ngValue]="option.value" *ngFor="let option of options">{{ option.name }}</option>
+        </select>
+    </label>
+</ng-container>
+<ng-container *ngIf="parentForm == null">
+    <label for="{{id}}" class="uk-form-label">
+        {{label}}
+        <select class="app-select" #appSelect (change)="changed.emit(appSelect.value)">
+            <option [value]="option.value" *ngFor="let option of options">{{ option.name }}</option>
+        </select>
+    </label>
+</ng-container>

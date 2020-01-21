@@ -41,7 +41,7 @@ export class LogDashboardComponent implements OnInit {
 
     filterForm : FormGroup = new FormGroup({
         showForm: new FormControl(true),
-		filters: new FormArray([this.newFilterGroup()])
+		filters: new FormArray([])
     });
     
     get filters(): FormArray { return this.filterForm.get('filters') as FormArray; }
@@ -56,8 +56,7 @@ export class LogDashboardComponent implements OnInit {
                 containers = data as Container[];
                 
                 this.containerOptions = containers.map(i => ({ name: i.name, value: i._id }));
-                
-                
+             
                 //load default container or last used container
                 let lastContainerId = this.getCurrentContainer();
                 if (this.containerOptions.findIndex(i => i.value == lastContainerId) > -1) {
@@ -82,10 +81,10 @@ export class LogDashboardComponent implements OnInit {
 
     newFilterGroup() : FormGroup {
         return new FormGroup({
-            property: new FormControl(),
-            operator: new FormControl(),
-            connector: new FormControl(),
-            value: new FormControl()
+            property: new FormControl(this.propertyOptions[0].value),
+            operator: new FormControl(this.operatorOptions[0].value),
+            connector: new FormControl(this.connectorOptions[0].value),
+            value: new FormControl(null, Validators.required)
         });
     }
 
@@ -95,6 +94,8 @@ export class LogDashboardComponent implements OnInit {
                 let properties: String[];
                 properties = data as String[];        
                 this.propertyOptions = properties.map(i => ({ name: i, value: i }));
+
+                this.filters.setValue
             }
         );
     }
@@ -156,6 +157,7 @@ export class LogDashboardComponent implements OnInit {
     }
 
     switchContainer(id: string){
+        this.filters.clear();
         this.containerForm.get("container").setValue(id, { onlySelf: true });
         this.getPossibleProperties(id);
         this.loadLogs(id);
