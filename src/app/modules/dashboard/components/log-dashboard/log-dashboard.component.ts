@@ -42,7 +42,9 @@ export class LogDashboardComponent implements OnInit {
     filterForm : FormGroup = new FormGroup({
         showForm: new FormControl(true),
 		filters: new FormArray([this.newFilterGroup()])
-	});
+    });
+    
+    get filters(): FormArray { return this.filterForm.get('filters') as FormArray; }
 
   	constructor(private _logService:LogService, private _containerService: ContainerService, private _notificationService: NotificationService) { }
 
@@ -71,13 +73,11 @@ export class LogDashboardComponent implements OnInit {
     }
 
     addFilterGroup(){
-        let filters = this.filterForm.get("filters") as FormArray;
-        filters.push(this.newFilterGroup());
+        this.filters.push(this.newFilterGroup());
     }
 
     removeFilterGroup(index: number){
-        let filters = this.filterForm.get("filters") as FormArray;
-        filters.removeAt(index);
+        this.filters.removeAt(index);
     }
 
     newFilterGroup() : FormGroup {
@@ -106,8 +106,7 @@ export class LogDashboardComponent implements OnInit {
 		}else{
             let query = {};
             
-            let filters = this.filterForm.get("filters") as FormArray;
-            for (let control of filters.controls) {
+            for (let control of this.filters.controls) {
 
                 let fg = control as FormGroup;
 
