@@ -83,7 +83,7 @@ export class LogDashboardComponent implements OnInit {
         return new FormGroup({
             property: new FormControl(this.propertyOptions[0].value),
             operator: new FormControl(this.operatorOptions[0].value),
-            connector: new FormControl(this.connectorOptions[0].value),
+            //connector: new FormControl(this.connectorOptions[0].value),
             value: new FormControl(null, Validators.required)
         });
     }
@@ -111,7 +111,6 @@ export class LogDashboardComponent implements OnInit {
 
                 let fg = control as FormGroup;
 
-                debugger;
                 //build query object from form values
                 let prop = fg.get("property").value;
                 let operator = fg.get("operator").value;
@@ -120,23 +119,41 @@ export class LogDashboardComponent implements OnInit {
                 //transform value to a number
                 if (!isNaN(value)) {
                     value = parseFloat(value);
-                }
+                }              
 
-                let queryVal;
+                let innerQuery;
                 switch (operator) {
                     case "==":
-                        queryVal = value;
+                        innerQuery = value;
                         break;
                     case "<":
-                        queryVal = { "$lt": value };
+                        innerQuery = { "$lt": value };
                         break;
                     case ">":
-                        queryVal = { "$gt": value };
+                        innerQuery = { "$gt": value };
                         break;
                     default:
                         break;
                 }
-                query[prop] = queryVal;
+
+                // let arr = new Array();
+                // let queryConnector = {};
+                // switch (connector) {
+                //     case "AND":
+                //         arr.push(innerQuery);
+                //         queryConnector["$and"] = arr;
+                //         break;
+                //     case "OR":
+                //         arr = new Array();
+                //         arr.push(innerQuery);
+                //         queryConnector["$or"] = arr;
+                //         break;
+                
+                //     default:
+                //         break;
+                // }
+
+                query[prop] = innerQuery;
             }
             //load logs with query values
             this.loadLogs(this.getCurrentContainer(), query);

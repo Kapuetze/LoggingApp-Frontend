@@ -14,7 +14,7 @@
             </li>
         </ul>
     </div>
-    <div class="uk-navbar-right">
+    <div class="top-navigation uk-navbar-right">
         <ul class="uk-navbar-nav">
             <li>
                 <a *ngIf="!_userService.isLoggedIn()" [routerLink]="['/user/login']" routerLinkActive="uk-active">Login</a>
@@ -29,6 +29,9 @@
                 <a *ngIf="_userService.isLoggedIn()" href="javascript:;" (click)="logout()">Logout</a>
             </li>
         </ul>
+        <a href="javascript:;" class="nav-icon" onclick="">
+            Menu
+        </a>
     </div>
 </nav>
 

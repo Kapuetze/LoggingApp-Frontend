@@ -2,7 +2,7 @@
     <h1>{{ container.name || "" }}</h1>
     Id: <span class="uk-text-muted uk-text-small">{{ container._id }}</span>
     Creation date: <span class="uk-text-muted uk-text-small">{{ container.creationDate }}</span>
-    <form [formGroup]="containerForm" (submit)="login()" class="uk-grid-small uk-child-width-1-1 uk-padding-remove" uk-grid>
+    <form [formGroup]="containerForm" (submit)="edit()" class="uk-grid-small uk-child-width-1-1 uk-padding-remove" uk-grid>
         <app-text-input [parentForm]="containerForm" type="text" label="Name" placeholder="Name" id="name" value="{{ container.name }}"></app-text-input>
         <div>
             <button type="submit" class="uk-button uk-button-primary uk-width-expand" [disabled]="!containerForm.valid">Edit</button>

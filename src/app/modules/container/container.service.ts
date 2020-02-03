@@ -19,6 +19,14 @@ export class ContainerService {
 			observe: "body",
 			headers: new HttpHeaders().append("Content-Type", "application/json")
 		});
+    }
+    
+    //create a new container
+  	patch(id: string, body: any){
+		return this._http.patch(environment.apiBase + "/container/" + id, body, {
+			observe: "body",
+			headers: new HttpHeaders().append("Content-Type", "application/json")
+		});
 	}
 
     getContainers() {

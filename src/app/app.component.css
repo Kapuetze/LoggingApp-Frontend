@@ -1,0 +1,29 @@
+.top-navigation .nav-icon {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .top-navigation li>a {
+        display: none;
+    }
+    .top-navigation .nav-icon {
+        float: right;
+        display: block;
+    }
+}
+  
+@media screen and (max-width: 600px) {
+    .top-navigation.responsive {
+        position: relative;
+    }
+    .top-navigation.responsive a.nav-icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .top-navigation.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}

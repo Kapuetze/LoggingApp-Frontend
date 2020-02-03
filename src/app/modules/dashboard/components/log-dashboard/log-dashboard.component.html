@@ -16,9 +16,9 @@
                         <app-select [parentForm]="filterGroup" [options]="operatorOptions" id="operator"></app-select>
                         <app-text-input [parentForm]="filterGroup" type="text" placeholder="Value" id="value"></app-text-input>
                         <div>
-                            <div class="options-wrapper uk-float-left">
+                            <!-- <div class="options-wrapper uk-float-left">
                                 <app-select [parentForm]="filterGroup" [options]="connectorOptions" id="connector"></app-select>
-                            </div>
+                            </div> -->
                             <div class="uk-float-right">
                                 <button class="uk-button uk-button-default" (click)="removeFilterGroup(i)">X</button>
                             </div>
@@ -33,17 +33,21 @@
           </form>
     </div>
     <div>
-        <button class="uk-button uk-button-primary uk-width-expand" (click)="applyFilter()" [disabled]="!filterForm.valid">Filter</button>
+        <button class="uk-button uk-button-primary uk-width-expand" (click)="applyFilter()" [disabled]="!filterForm.valid">Apply Filter</button>
     </div>
     <div *ngFor="let log of logs">
         <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body" attr.uk-toggle="target: #modal{{log._id}}">
-            <div class="uk-card-badge uk-label">{{ log.label }}</div>
+            <div class="uk-card-badge" >
+                <span class="uk-label uk-margin-small-right" *ngFor="let label of log.labels">{{ label }}</span>
+            </div>
             <h3 class="uk-card-title">{{ log.title }} <br> <span class="uk-text-muted uk-text-small">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</span></h3>				
         </div>
         <div id="modal{{log._id}}" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <div class="uk-card-badge uk-label">{{ log.label }}</div>
+                    <div class="uk-card-badge" >
+                        <span class="uk-label uk-margin-small-right" *ngFor="let label of log.labels">{{ label }}</span>
+                    </div>
                     <h3 class="uk-card-title">{{ log.creationDate | date: 'y/M/d hh:mm:ss' }}</h3>		
                 </div>
                 <div class="uk-modal-body" uk-overflow-auto>

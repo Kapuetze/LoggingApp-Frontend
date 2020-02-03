@@ -1,6 +1,6 @@
 export class Log {
     _id: string;
-    label: string;
+    labels: [ string ];
     title: string;
     content: {};
     creationDate: Date;
