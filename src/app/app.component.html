@@ -22,7 +22,7 @@
             <li>
                 <a *ngIf="!_userService.isLoggedIn()" [routerLink]="['/user/register']" routerLinkActive="uk-active">Register</a>
             </li>
-            <li>
+            <li hidden>
                 <a *ngIf="_userService.isLoggedIn()" [routerLink]="['/user/profile']" routerLinkActive="uk-active">{{ _userService.getUserName() }}</a>
             </li>
             <li>

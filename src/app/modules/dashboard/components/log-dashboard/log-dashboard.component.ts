@@ -71,23 +71,26 @@ export class LogDashboardComponent implements OnInit {
 
     }
 
+    //add a new filter
     addFilterGroup(){
         this.filters.push(this.newFilterGroup());
     }
 
+    //remove a filter
     removeFilterGroup(index: number){
         this.filters.removeAt(index);
     }
 
+    //return a new filter group
     newFilterGroup() : FormGroup {
         return new FormGroup({
             property: new FormControl(this.propertyOptions[0].value),
             operator: new FormControl(this.operatorOptions[0].value),
-            //connector: new FormControl(this.connectorOptions[0].value),
             value: new FormControl(null, Validators.required)
         });
     }
 
+    //get available properties from the api
     getPossibleProperties(id: string){
         this._logService.getPropertyNamesForContainer(id).subscribe(
 			data => {
@@ -100,12 +103,20 @@ export class LogDashboardComponent implements OnInit {
         );
     }
 
+    //use filters with loadLogs function
     applyFilter(){
 
         if (!this.filterForm.valid) {
             this._notificationService.notify("The form is invalid.");
 		}else{
             let query = {};
+            let andQry = [];
+            query = {
+                $and: [
+                    { $or: [{a: 1}, {b: 1}] },
+                    { $or: [{c: 1}, {d: 1}] }
+                ]
+            };
             
             for (let control of this.filters.controls) {
 
@@ -116,50 +127,72 @@ export class LogDashboardComponent implements OnInit {
                 let operator = fg.get("operator").value;
                 let value = fg.get("value").value;
 
+                let floatQry;
                 //transform value to a number
                 if (!isNaN(value)) {
-                    value = parseFloat(value);
+                    let floatValue = parseFloat(value);
+
+                    //floats need to be parsed before querying
+                    //but we never know if it is actually a float, so we need to search for the string as well
+                    //using OR
+                    switch (operator) {
+                        case "==":
+                            floatQry = floatValue;
+                            break;
+                        case "<":
+                            floatQry = { "$lt": floatValue };
+                            break;
+                        case ">":
+                            floatQry = { "$gt": floatValue };
+                            break;
+                        default:
+                            break;
+                    }
                 }              
 
-                let innerQuery;
+                let innerQry;
                 switch (operator) {
                     case "==":
-                        innerQuery = value;
+                        innerQry = value;
                         break;
                     case "<":
-                        innerQuery = { "$lt": value };
+                        innerQry = { "$lt": value };
                         break;
                     case ">":
-                        innerQuery = { "$gt": value };
+                        innerQry = { "$gt": value };
                         break;
                     default:
                         break;
                 }
 
-                // let arr = new Array();
-                // let queryConnector = {};
-                // switch (connector) {
-                //     case "AND":
-                //         arr.push(innerQuery);
-                //         queryConnector["$and"] = arr;
-                //         break;
-                //     case "OR":
-                //         arr = new Array();
-                //         arr.push(innerQuery);
-                //         queryConnector["$or"] = arr;
-                //         break;
-                
-                //     default:
-                //         break;
-                // }
+                if (!isNaN(value)) {
+                    let newProp = {};
+                    newProp[prop] = innerQry;
+                    let floatProp = {};
+                    floatProp[prop] = floatQry;
 
-                query[prop] = innerQuery;
+                    let orQry = { $or: [newProp, floatProp] }
+                    andQry.push(orQry);
+                }else{
+                    let newProp = {};
+                    newProp[prop] = innerQry;
+                    andQry.push(newProp)
+                }
             }
+
+            if (andQry.length > 0) {
+                query['$and'] = andQry;
+            }else{
+                query = {};
+            }
+            
+
             //load logs with query values
             this.loadLogs(this.getCurrentContainer(), query);
 		}
     }
 
+    //load logs for a container id
     loadLogs(id: string, query: any = null): void{
 
         if (query != null) {
@@ -173,6 +206,7 @@ export class LogDashboardComponent implements OnInit {
         this.setCurrentContainer(id);
     }
 
+    //change the current container
     switchContainer(id: string){
         this.filters.clear();
         this.containerForm.get("container").setValue(id, { onlySelf: true });
@@ -180,10 +214,12 @@ export class LogDashboardComponent implements OnInit {
         this.loadLogs(id);
     }
 
+    //return the currently selected container
     getCurrentContainer(): string{
         return sessionStorage.getItem("current_container");
     }
 
+    //set the currently selected container
     setCurrentContainer(id: string): void{
         sessionStorage.setItem("current_container", id);
     }
